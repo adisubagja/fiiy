@@ -7,7 +7,7 @@
 <p align="center">&nbsp;</p>
 <h2 align="center">How To Host</h2>
 <h5 align="center">The easiest way to deploy this great bot! is click on this Pussy image below o((*^▽^*))o</h5>
-<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/tdspya/fiiy/tree/sql-extended"> <img src="https://i.ibb.co/NS15ZhZ/1582673031922.png" alt="Deploy to Heroku" /></a></p>
+<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/tdspya/fiiy/tree/sql-extended"> <img src="https://i.ibb.co/LtsRLLH/1582673031922.png" alt="Deploy to Heroku" /></a></p>
 <p align="center">&nbsp;</p>
 <h2 align="center">Credits</h2>
 <p align="center">Huge thanks to <a href="https://github.com/MoveAngel/One4uBot/graphs/contributors">everyone</a> who have helped make this userbot awesome!!</p>
