@@ -127,6 +127,12 @@ async def amireallyalive(alive):
                      f"`Python : v{python_version()} `\n"
 	                 "======================== \n"
                      f"`User : `{DEFAULTUSER} \n")
+	                     "============= \n"
+                     "Hello everyone its [@Adisubagja](https://t.me/Adisubagja) \n"
+                     "Powered by [BOT GABUT](https://netz-droid.blogspot.com) \n"
+                     "============="
+
+                                         "")
 
 
 @register(outgoing=True, pattern="^.aliveu")
