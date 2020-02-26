@@ -72,7 +72,7 @@ async def bot_ver(event):
                          "`")
     else:
         await event.edit(
-            "Shame that you don't have git, You're running 5.0 - 'Extended' anyway"
+            "Shame that you don't have git, You're running 9.0 - 'Extended' anyway"
         )
 
 
@@ -119,20 +119,22 @@ async def pipcheck(pip):
         await pip.edit("`Use .help pip to see an example`")
 
 
-@register(outgoing=True, pattern="^.alive$")
-async def amireallyalive(alive):
-    """ For .alive command, check if the bot is running.  """
-    await alive.edit(
-                     f"`Telethon : v{version.__version__} `\n"
-                     f"`Python : v{python_version()} `\n"
-	                 "======================== \n"
-                     f"`User : `{DEFAULTUSER} \n")
-	                     "============= \n"
+
+@register(outgoing=True, pattern="^.on$")
+async def amireallyalive(on):
+    """ For .on command, check if the bot is running.  """
+    await on.edit("`"
+                     f"My but is run, \n\n"
+                     f"User: {DEFAULTUSER} \n"
+                     f"Telethon :{version.__version__} \n"
+                     f"Python   :{python_version()} \n\n`"
+                     "============= \n"
                      "Hello everyone its [@Adisubagja](https://t.me/Adisubagja) \n"
-                     "Powered by [BOT GABUT](https://netz-droid.blogspot.com) \n"
+                     "Powered by [LORD GAROX](https://www.heroku.com) \n"
                      "============="
 
                                          "")
+
 
 
 @register(outgoing=True, pattern="^.aliveu")
@@ -165,9 +167,9 @@ CMD_HELP.update(
     {"pip": ".pip <module(s)>\
     \nUsage: Does a search of pip modules(s)."})
 CMD_HELP.update({
-    "alive":
-    ".alive\
-    \nUsage: Type .alive to see wether your bot is working or not.\
+    "on":
+    ".on\
+    \nUsage: Type .on to see wether your bot is working or not.\
     \n\n.aliveu <text>\
     \nUsage: Changes the 'user' in alive to the text you want.\
     \n\n.resetalive\
