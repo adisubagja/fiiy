@@ -61,13 +61,13 @@ async def deepfryer(event):
         return
 
     # download last photo (highres) as byte array
-    await event.edit("`Downloading media…`")
+    await event.edit("`Mengunduh media…`")
     image = io.BytesIO()
     await event.client.download_media(data, image)
     image = Image.open(image)
 
     # fry the image
-    await event.edit("`Deep frying media…`")
+    await event.edit("`Beku Anjay…`")
     for _ in range(frycount):
         image = await deepfry(image)
 
