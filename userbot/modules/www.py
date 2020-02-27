@@ -17,7 +17,7 @@ from userbot.events import register
 @register(outgoing=True, pattern="^.speed$")
 async def speedtst(spd):
     """ For .speed command, use SpeedTest to check server speeds. """
-    await spd.edit("`Running speed test . . .`")
+    await spd.edit("`Memulai Uji Coba . . .`")
     test = Speedtest()
 
     test.get_best_server()
@@ -27,11 +27,11 @@ async def speedtst(spd):
     result = test.results.dict()
 
     await spd.edit("`"
-                   "Started at "
+                   "DUUUUAARRRRR "
                    f"{result['timestamp']} \n\n"
-                   "Download "
+                   "Unduh "
                    f"{speed_convert(result['download'])} \n"
-                   "Upload "
+                   "Unggah "
                    f"{speed_convert(result['upload'])} \n"
                    "Ping "
                    f"{result['ping']} \n"
