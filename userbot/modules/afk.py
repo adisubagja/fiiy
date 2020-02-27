@@ -122,10 +122,10 @@ async def set_afk(afk_e):
     global AFKREASON
     if string:
         AFKREASON = string
-        await afk_e.edit(f"__AFK dulu slur!__\
+        await afk_e.edit(f"__AFK deh males!__\
         \nReason: `{string}`")
     else:
-        await afk_e.edit("__AFK dulu slur!__")
+        await afk_e.edit("__AFK deh males!__")
     if BOTLOG:
         await afk_e.client.send_message(BOTLOG_CHATID, "#AFK\nYou went AFK!")
     ISAFK = True
@@ -141,7 +141,7 @@ async def type_afk_is_not_true(notafk):
     global AFKREASON
     if ISAFK:
         ISAFK = False
-        msg = await notafk.respond("I'm no longer AFK..")
+        msg = await notafk.respond("Sudah tidak AFK..")
         await sleep(5)
         await msg.delete()
         if BOTLOG:
