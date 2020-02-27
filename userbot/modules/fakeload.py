@@ -11,7 +11,7 @@ from userbot.events import register
 @register(outgoing=True, pattern="^.fl(?: |$)(.*)")
 async def typewriter(typew):
 	message = typew.pattern_match.group(1)
-	await typew.edit("`start loading makan tokek goreng!...`")
+	await typew.edit("`start loading tunggu sebentar!...`")
 	sleep(4)
 	await typew.edit("0%")
 	number = 1
@@ -314,11 +314,11 @@ async def typewriter(typew):
 	sleep(0.03)
 	await typew.edit(str(number) + "%   ████████████████▌")
 	sleep(1)
-	await typew.edit("Tokek Goreng Siap di Santap! Jangan lupa Menu penutup nya [DISINI](http://javbus.com)")
+	await typew.edit("Selesai... Ada apa? [@Adisubagja](http://t.me/adisubagja)")
 	# I did it for two hours :D just ctrl+c - crtl+v
 
 CMD_HELP.update({
     "fakeload":
-    ".fl\
+    ".tg\
     \nUsage: Tokek Goreng Dan makanan penutup."
 })
