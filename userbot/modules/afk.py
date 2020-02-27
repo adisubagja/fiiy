@@ -3,6 +3,7 @@
 # Licensed under the Raphielscape Public License, Version 1.c (the "License");
 # you may not use this file except in compliance with the License.
 #
+# afk
 """ Userbot module which contains afk-related commands """
 
 from random import choice, randint
@@ -13,12 +14,6 @@ from telethon.events import StopPropagation
 from userbot import (AFKREASON, COUNT_MSG, CMD_HELP, ISAFK, BOTLOG,
                      BOTLOG_CHATID, USERS, PM_AUTO_BAN)
 from userbot.events import register
-
-try:
-    from userbot.modules.sql_helper.globals import gvarstatus, addgvar, delgvar
-    afk_db = True
-except AttributeError:
-    afk_db = False
 
 # ========================= CONSTANTS ============================
 AFKSTR = [
@@ -55,29 +50,21 @@ async def mention_afk(mention):
     global COUNT_MSG
     global USERS
     global ISAFK
-    global AFFKREASON
-    ISAFK_SQL = False
-    AFKREASON_SQL = None
-    if afk_db:
-        ISAFK_SQL = gvarstatus("AFK_STATUS")
-        AFKREASON_SQL = gvarstatus("AFK_REASON")
-    EXCUSE = AFKREASON_SQL if afk_db else AFKREASON
     if mention.message.mentioned and not (await mention.get_sender()).bot:
-        if ISAFK or ISAFK_SQL:
+        if ISAFK:
             if mention.sender_id not in USERS:
-                if EXCUSE:
-                    await mention.reply(f"I'm AFK right now.\
-                    \nReason: `{EXCUSE}`")
+                if AFKREASON:
+                    await mention.reply(f"I need to take a rest. AFK right now.\
+                        \nReason `{AFKREASON}`")
                 else:
                     await mention.reply(str(choice(AFKSTR)))
                 USERS.update({mention.sender_id: 1})
                 COUNT_MSG = COUNT_MSG + 1
             elif mention.sender_id in USERS:
                 if USERS[mention.sender_id] % randint(2, 4) == 0:
-                    if EXCUSE:
-                        await mention.reply(
-                            f"In case you didn't notice, I'm still AFK.\
-                        \nReason: `{EXCUSE}`")
+                    if AFKREASON:
+                        await mention.reply(f"I'm still AFK.\
+                            \nReason: `{AFKREASON}`")
                     else:
                         await mention.reply(str(choice(AFKSTR)))
                     USERS[mention.sender_id] = USERS[mention.sender_id] + 1
@@ -91,15 +78,8 @@ async def mention_afk(mention):
 async def afk_on_pm(sender):
     """ Function which informs people that you are AFK in PM """
     global ISAFK
-    global AFFKREASON
-    ISAFK_SQL = False
-    AFKREASON_SQL = None
-    if afk_db:
-        ISAFK_SQL = gvarstatus("AFK_STATUS")
-        AFKREASON_SQL = gvarstatus("AFK_REASON")
     global USERS
     global COUNT_MSG
-    EXCUSE = AFKREASON_SQL if afk_db else AFKREASON
     if sender.is_private and sender.sender_id != 777000 and not (
             await sender.get_sender()).bot:
         if PM_AUTO_BAN:
@@ -110,21 +90,20 @@ async def afk_on_pm(sender):
                 apprv = True
         else:
             apprv = True
-        if apprv and (ISAFK or ISAFK_SQL):
+        if apprv and ISAFK:
             if sender.sender_id not in USERS:
-                if EXCUSE:
-                    await sender.reply(f"Dah ah males, I'm AFK right now.\
-                    \nReason: `{EXCUSE}`")
+                if AFKREASON:
+                    await sender.reply(f"I'm AFK right now.\
+                    \nReason: `{AFKREASON}`")
                 else:
                     await sender.reply(str(choice(AFKSTR)))
                 USERS.update({sender.sender_id: 1})
                 COUNT_MSG = COUNT_MSG + 1
             elif apprv and sender.sender_id in USERS:
                 if USERS[sender.sender_id] % randint(2, 4) == 0:
-                    if EXCUSE:
-                        await sender.reply(
-                            f"In case you didn't notice, I'm still AFK.\
-                        \nReason: `{EXCUSE}`")
+                    if AFKREASON:
+                        await sender.reply(f"I'm still AFK.\
+                        \nReason: `{AFKREASON}`")
                     else:
                         await sender.reply(str(choice(AFKSTR)))
                     USERS[sender.sender_id] = USERS[sender.sender_id] + 1
@@ -140,24 +119,15 @@ async def set_afk(afk_e):
     message = afk_e.text
     string = afk_e.pattern_match.group(1)
     global ISAFK
-    global AFFKREASON
-    ISAFK_SQL = False
-    AFKREASON_SQL = None
-    if afk_db:
-        ISAFK_SQL = gvarstatus("AFK_STATUS")
-        AFKREASON_SQL = gvarstatus("AFK_REASON")
+    global AFKREASON
     if string:
-        if afk_db:
-            addgvar("AFK_REASON", string)
         AFKREASON = string
-        await afk_e.edit(f"Going AFK!\
+        await afk_e.edit(f"__AFK dulu slur!__\
         \nReason: `{string}`")
     else:
-        await afk_e.edit("`Going away from Virtual World !!`")
+        await afk_e.edit("__AFK dulu slur!__")
     if BOTLOG:
         await afk_e.client.send_message(BOTLOG_CHATID, "#AFK\nYou went AFK!")
-    if afk_db:
-        addgvar("AFK_STATUS", True)
     ISAFK = True
     raise StopPropagation
 
@@ -165,21 +135,15 @@ async def set_afk(afk_e):
 @register(outgoing=True)
 async def type_afk_is_not_true(notafk):
     """ This sets your status as not afk automatically when you write something while being afk """
+    global ISAFK
     global COUNT_MSG
     global USERS
-    global ISAFK
-    global AFFKREASON
-    AFKREASON_SQL = None
-    ISAFK_SQL = False
-    if afk_db:
-        ISAFK_SQL = gvarstatus("AFK_STATUS")
-        AFKREASON_SQL = gvarstatus("AFK_REASON")
-    if ISAFK or ISAFK_SQL:
-        if afk_db:
-            delgvar("AFK_STATUS")
-            delgvar("AFK_REASON")
+    global AFKREASON
+    if ISAFK:
         ISAFK = False
-        AFKREASON = None
+        msg = await notafk.respond("I'm no longer AFK..")
+        await sleep(5)
+        await msg.delete()
         if BOTLOG:
             await notafk.client.send_message(
                 BOTLOG_CHATID,
@@ -196,6 +160,7 @@ async def type_afk_is_not_true(notafk):
                 )
         COUNT_MSG = 0
         USERS = {}
+        AFKREASON = None
 
 
 CMD_HELP.update({
