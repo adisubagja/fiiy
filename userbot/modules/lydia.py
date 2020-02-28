@@ -25,7 +25,7 @@ from userbot.events import register
 from telethon import events
 
 # Non-SQL Mode
-ACC_LYDIA =adisubagja {}
+ACC_LYDIA =adisubagjaa {}
 SESSION_ID =0e951f2957e7071569692b425d3bf63830df5dbf51cf21a44e7c064a85a9ec33 {}
 
 if LYDIA_API_KEY:
